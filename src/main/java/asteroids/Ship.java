@@ -1,13 +1,7 @@
 package asteroids;
 
 // velocity = change in distance / change in time
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import javafx.event.Event;
-import javafx.geometry.Bounds;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.*;
 
 public class Ship implements Moveable {
@@ -38,57 +32,25 @@ public class Ship implements Moveable {
     public Polygon getShipShape() {
         return shipShape;
     }
-//
-//    @Override
-//    public void slow(long timeDifference) {
-//        if (lastKeyPressed == KeyCode.RIGHT) {
-//            physics.decreaseSpeed();
-//            moveRight(timeDifference);
-//        }
-//        if (lastKeyPressed == KeyCode.LEFT) {
-//            physics.decreaseSpeed();
-//            moveLeft(timeDifference);
-//        }
-//    }
 
+
+    public void slow(long timeDifference) {
+        if (physics.getSpeed() > 0) {
+            physics.decreaseSpeed();
+        } else {
+            physics.resetVariables();
+        }
+        shipShape.setTranslateX(shipShape.getTranslateX() + physics.calculateDistanceInXCoordinate(timeDifference));
+        shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInYCoordinate(timeDifference));
+    }
+    
     @Override
     public void move(KeyCode keyPressed, long timeDifference) {
-        if (keyPressed == KeyCode.RIGHT) {
-            physics.increaseSpeed();
-            moveRight(timeDifference);
-            rotate(keyPressed);
-        }
-        if (keyPressed == KeyCode.LEFT) {
-            physics.increaseSpeed();
-            moveLeft(timeDifference);
-            rotate(keyPressed);
-        }
-        if (keyPressed == KeyCode.DOWN) {
-            physics.increaseSpeed();
-            moveDown(timeDifference);
-            rotate(keyPressed);
-        }
-        if (keyPressed == KeyCode.UP) {
-            physics.increaseSpeed();
-            moveUp(timeDifference);
-            rotate(keyPressed);
-        }
-    }
-
-    private void moveLeft(long timeDifference) {
-        shipShape.setTranslateX(shipShape.getTranslateX() - physics.calculateDistanceInPixels(timeDifference));
-    }
-
-    private void moveRight(long timeDifference) {
-        shipShape.setTranslateX(shipShape.getTranslateX() + physics.calculateDistanceInPixels(timeDifference));
-    }
-
-    private void moveDown(long timeDifference) {
-        shipShape.setTranslateY(shipShape.getTranslateY() + physics.calculateDistanceInPixels(timeDifference));
-    }
-
-    private void moveUp(long timeDifference) {
-        shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInPixels(timeDifference));
+        System.out.println(physics.calculateDistanceInYCoordinate(timeDifference));
+        physics.increaseSpeed();
+        shipShape.setTranslateX(shipShape.getTranslateX() + physics.calculateDistanceInXCoordinate(timeDifference));
+        shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInYCoordinate(timeDifference));
+        rotate(keyPressed);
     }
 
     private void rotate(KeyCode keyPressed) {
@@ -138,35 +100,4 @@ public class Ship implements Moveable {
             physics.setDirectionInDegrees(shipShape.getRotate());
         } 
     }
-
-//    public void moveRight() {
-//        double previousPositionX = shipShape.getTranslateX();
-//        double previousPositionY = shipShape.getTranslateY();
-//        shipShape.setTranslateX(shipShape.getTranslateX() + 0.2);
-//        System.out.println(shipShape.getTranslateX());
-//        double[] velocity = new double[2];
-//        velocity[0] = shipShape.getTranslateX()- previousPositionX;
-//        velocity[1] = shipShape.getTranslateY() - previousPositionY;
-//        System.out.println(Arrays.toString(velocity));
-//        
-//        I can use this to get the coordinates. 
-//        Bounds boundsInScene = shipShape.localToParent(shipShape.getBoundsInLocal());
-//        drawBounds(boundsInScene);
-//    }
-//    public void calculateVelocity() {
-//        double previousPositionX = shipShape.getTranslateX();
-//        double previousPositionY = shipShape.getTranslateY();
-//    }
-//    public void setPosition() {
-//        
-//    }
-//    public double[] addToPoints(double number) {
-//        double[] newPoints = new double[6];
-//        
-//        for (int i = 0; i < position.length; i++) {
-//            newPoints[i] = position[i] + number;
-//        }
-//        
-//        return newPoints;
-//    }
 }

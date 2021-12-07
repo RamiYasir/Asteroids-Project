@@ -64,7 +64,7 @@ public class Game {
                 }
                 
                 if (keyCode == null || pressedKeys.get(keyCode) == false || keyCode != previousCode) {
-                    ship.physics.resetVariables();
+                    ship.slow(timeDifference);
                 } else {
                     ship.move(keyCode, timeDifference);
                 }

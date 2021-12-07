@@ -37,13 +37,32 @@ public class Physics {
         }
         speed -= 0.05;
     }
+    
+    public double getSpeed() {
+        return speed;
+    }
+    
+    public double calculateDistanceInXCoordinate(long timeDifference) {
+        // soh cah toa. soh? sin(theta) = opposite / hypotenuse
+        // opposite = sin(theta) * hypotenuse
+        
+        double degreeInRadians = Math.toRadians(directionInDegrees);
+        double distanceOfX = Math.sin(degreeInRadians) * calculateDistanceInPixels(timeDifference);
+        return distanceOfX;
+    }
 
-//    public double calculateDistanceInXCoordinate(long timeDifference) {
-//        
-//    }
+    public double calculateDistanceInYCoordinate(long timeDifference) {
+        //soh cah toa. cah? cos(theta) = adjacent / hypotenuse
+        //adjacent = cos(theta) * hypotenuse
+
+        double degreeInRadians = Math.toRadians(directionInDegrees);
+        double distanceOfY = Math.cos(degreeInRadians) * calculateDistanceInPixels(timeDifference);
+        return distanceOfY;
+    }
     
     public double calculateDistanceInPixels(long timeDifference) {
         double distance = this.speed * (timeDifference / 1000000);
+        System.out.println("distance: " + distance);
         return distance;
     }
     

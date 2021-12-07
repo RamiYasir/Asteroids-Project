@@ -1,4 +1,4 @@
 package asteroids;
 
-public class Asteroid {
+public class Asteroid /*implements Moveable*/ {
 }
