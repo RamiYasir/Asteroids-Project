@@ -23,16 +23,11 @@ public class Game {
         this.scene = createScene();
     }
     
-//    public void run() {
-//        while (isRunning) {
-//            scene.getOnKeyPressed();
-//        }
-//    }
-//    
     private Scene createScene() {
         Pane pane = new Pane();
         pane.setPrefSize(600, 480);
         pane.getChildren().add(ship.getShipShape());
+//        pane.getChildren().add(ship.getBoundsBox());
         Scene scene = new Scene(pane);
         scene.setOnKeyPressed(ship::move);
         return scene;

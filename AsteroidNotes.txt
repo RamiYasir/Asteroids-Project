@@ -13,3 +13,26 @@ Ship
 
 Gravity (compisite with Asteroid and maybe Ship)
 HandleInput (composite with Ship)
+
+//can rotate to a certain angle.
+        //keep track of which direction the ship is facing? Maybe as an enum?
+        //then a helper function called "rotate ship" which takes the direction to 
+        //face and animates its movement in relation to the direction we already have. 
+        
+        //or, somehow keep track of the "nose" point. Somehow convert this into a positive or negative number
+        //within a range and assign it to this.direction.
+
+
+I know the thing is 600 x 400. If I add the coordinates together, highest I can get is 
+
+//actually, maybe convert this to polar coordinates instead. 
+
+//or i could take two coordinates, the nose and the point opposite it, on the tail end. If i minus the tail set of points
+from the nose set, I could get a rough direction. 
+
+//OR, could take the previous set of coordinates and the current set of coordinates and figure out the direction of movement
+from there.
+
+//use count of left or right keypressed events as a time indicator. 
+
+//If i take the previous position from the current one, I get a velocity. 

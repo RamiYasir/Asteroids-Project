@@ -8,6 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 
 
+// need to put an AnimationTimer somewhere to handle the framerate.
+// maybe pass it into the physics object of each moveable object. 
+
 public class AsteroidsApplication extends Application {
 
     @Override
