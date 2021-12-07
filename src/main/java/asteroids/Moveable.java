@@ -6,5 +6,5 @@ import javafx.scene.input.KeyEvent;
 
 public interface Moveable {
     public void move(KeyCode keyPressed, long timeDifference);
-//    public void slow(long timeDifference);
+    public void slow(long timeDifference);
 }

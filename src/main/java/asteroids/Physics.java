@@ -15,11 +15,8 @@ public class Physics {
 
     private double speed;
     private double directionInDegrees;
-//    private int[] velocity;
-//    private int[] position;
 
     public Physics() {
-//        velocity = new int[2];
         this.speed = 0;
         this.directionInDegrees = 0;
     }
@@ -28,14 +25,15 @@ public class Physics {
         if (speed >= 9) {
             return;
         }
-        speed += 0.02;
+        speed += 0.01;
     }
     
     public void decreaseSpeed() {
         if (speed <= 0) {
+            speed = 0.0;
             return;
         }
-        speed -= 0.05;
+        speed -= 0.03;
     }
     
     public double getSpeed() {
@@ -83,13 +81,4 @@ public class Physics {
     public double getDirectionInDegrees() {
         return directionInDegrees;
     }
-    
-//    public double calculateVelocity(Duration deltaTime) {
-//        // v = u + a * t
-//        
-////        could maybe calculate velocity by having a direction (in degrees)
-////        could then have
-//        
-//        return velocity + acceleration * (deltaTime.toMillis() / 1000);
-//    }
 }
