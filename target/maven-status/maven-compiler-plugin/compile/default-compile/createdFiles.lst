@@ -1,0 +1,8 @@
+asteroids\Asteroid.class
+asteroids\AsteroidsApplication.class
+asteroids\Projectile.class
+asteroids\Ship.class
+asteroids\Hitbox.class
+asteroids\Moveable.class
+asteroids\MoveableObject.class
+asteroids\Game.class

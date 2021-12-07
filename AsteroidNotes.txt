@@ -1,0 +1,15 @@
+asteroids game:
+
+Make asteroids have gravity.
+set the gravity depending on asteroid size.
+
+Make asteroids have health? 
+
+
+Classes:
+Game
+Asteroid
+Ship
+
+Gravity (compisite with Asteroid and maybe Ship)
+HandleInput (composite with Ship)
