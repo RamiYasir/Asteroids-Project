@@ -6,4 +6,5 @@ asteroids\Ship.class
 asteroids\Hitbox.class
 asteroids\Moveable.class
 asteroids\MoveableObject.class
+asteroids\Game$1.class
 asteroids\Game.class
