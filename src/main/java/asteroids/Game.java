@@ -8,6 +8,7 @@ package asteroids;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -36,10 +37,12 @@ public class Game {
         Pane pane = new Pane();
         pane.setPrefSize(600, 480);
         pane.getChildren().add(ship.getShipShape());
-//        pane.getChildren().add(ship.getBoundsBox());
         Scene scene = new Scene(pane);
         
+//        Bounds paneBounds = pane.sceneToLocal(pane.getBoundsInLocal());
+        
         scene.setOnKeyPressed(event -> {
+//            System.out.println(paneBounds);
             pressedKeys.put(event.getCode(), Boolean.TRUE);
         });
 
@@ -50,7 +53,6 @@ public class Game {
         new AnimationTimer() {
             long previousTimeStamp = 0;
             KeyCode keyCode = null;
-            // keeping track of previousCode is a bug fix.
             KeyCode previousCode = null;
             
             @Override

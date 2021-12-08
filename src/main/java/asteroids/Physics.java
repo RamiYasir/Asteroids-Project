@@ -9,8 +9,6 @@
 // passed as a parameter to this physics object. 
 package asteroids;
 
-import java.time.Duration;
-
 public class Physics {
 
     private double speed;
@@ -22,7 +20,8 @@ public class Physics {
     }
     
     public void increaseSpeed() {
-        if (speed >= 9) {
+        if (speed >= 1.0) {
+            speed = 1.0;
             return;
         }
         speed += 0.01;
@@ -33,7 +32,7 @@ public class Physics {
             speed = 0.0;
             return;
         }
-        speed -= 0.03;
+        speed -= 0.02;
     }
     
     public double getSpeed() {
@@ -60,7 +59,8 @@ public class Physics {
     
     public double calculateDistanceInPixels(long timeDifference) {
         double distance = this.speed * (timeDifference / 1000000);
-        System.out.println("distance: " + distance);
+//        System.out.println("distance: " + distance);
+//        System.out.println("speed: " + speed);
         return distance;
     }
     

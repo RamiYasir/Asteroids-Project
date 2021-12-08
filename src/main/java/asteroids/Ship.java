@@ -1,6 +1,7 @@
 package asteroids;
 
 // velocity = change in distance / change in time
+import javafx.geometry.Bounds;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.*;
 
@@ -34,6 +35,7 @@ public class Ship implements Moveable {
     }
 
 
+    @Override
     public void slow(long timeDifference) {
         if (physics.getSpeed() > 0) {
             physics.decreaseSpeed();
@@ -47,7 +49,13 @@ public class Ship implements Moveable {
     @Override
     public void move(KeyCode keyPressed, long timeDifference) {
         System.out.println(physics.calculateDistanceInYCoordinate(timeDifference));
-        physics.increaseSpeed();
+        if (physics.getSpeed() < 9) {
+            physics.increaseSpeed();
+        } 
+        Bounds paneBounds = shipShape.getParent().getBoundsInLocal();
+        Bounds shipBounds = shipShape.getBoundsInParent();
+        System.out.println(paneBounds);
+        System.out.println(shipBounds);
         shipShape.setTranslateX(shipShape.getTranslateX() + physics.calculateDistanceInXCoordinate(timeDifference));
         shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInYCoordinate(timeDifference));
         rotate(keyPressed);
@@ -92,7 +100,7 @@ public class Ship implements Moveable {
         if (keyPressed == KeyCode.UP) {
             if (physics.getDirectionInDegrees() > 180.0 && physics.getDirectionInDegrees() < 360.0) {
                 shipShape.setRotate(shipShape.getRotate() + 5);
-            } else if (physics.getDirectionInDegrees() == 0.0) {
+            } else if (physics.getDirectionInDegrees() == 0.0 || physics.getDirectionInDegrees() == 360.0) {
                 return;
             } else {
                 shipShape.setRotate(shipShape.getRotate() - 5);
