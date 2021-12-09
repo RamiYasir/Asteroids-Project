@@ -1,9 +1,11 @@
 asteroids\Physics.class
 asteroids\Asteroid.class
 asteroids\AsteroidsApplication.class
+asteroids\UserInterface.class
 asteroids\Projectile.class
 asteroids\Ship.class
 asteroids\Hitbox.class
+asteroids\Directions.class
 asteroids\Moveable.class
 asteroids\MoveableObject.class
 asteroids\Game$1.class

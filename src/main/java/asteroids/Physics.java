@@ -20,8 +20,8 @@ public class Physics {
     }
     
     public void increaseSpeed() {
-        if (speed >= 1.0) {
-            speed = 1.0;
+        if (speed >= 0.8) {
+            speed = 0.8;
             return;
         }
         speed += 0.01;
