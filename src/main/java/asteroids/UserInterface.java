@@ -16,11 +16,9 @@ import javafx.scene.input.KeyCode;
 public class UserInterface {
 
     private HashMap<KeyCode, Boolean> pressedKeys;
-//    private HashMap<KeyCode, Boolean> pressedArrowKeys;
 
     public UserInterface() {
         this.pressedKeys = new HashMap<>();
-//        this.pressedArrowKeys = new HashMap<>();
     }
 
     public void add(KeyCode keyCode, Boolean value) {

@@ -59,8 +59,6 @@ public class Physics {
     
     public double calculateDistanceInPixels(long timeDifference) {
         double distance = this.speed * (timeDifference / 1000000);
-//        System.out.println("distance: " + distance);
-//        System.out.println("speed: " + speed);
         return distance;
     }
     

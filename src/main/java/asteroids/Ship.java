@@ -61,85 +61,127 @@ public class Ship implements Moveable {
     }
 
     public void rotate(Directions directionFaced) {
-        System.out.println(shipShape.getRotate() + " " + physics.getDirectionInDegrees());
+        System.out.println("directionfaced: " + " " + directionFaced + ", " + directionFaced.getAngle());
+        System.out.println("physics.directionInDegrees: " + physics.getDirectionInDegrees());
+        System.out.println("directionFaced + 180: " + directionFaced.add180());
 
-        if (directionFaced == Directions.EAST) {
-            if (physics.getDirectionInDegrees() > 270.0 || physics.getDirectionInDegrees() < 90.0) {
+        if (directionFaced == Directions.NONE) {
+            return;
+        }
+
+        if (directionFaced.getAngle() > 180.0) {
+            if (physics.getDirectionInDegrees() > directionFaced.getAngle() || physics.getDirectionInDegrees() < directionFaced.add180()) {
+                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
+            } else if (physics.getDirectionInDegrees() == directionFaced.getAngle()) {
+                return;
+            } else {
                 shipShape.setRotate(physics.getDirectionInDegrees() + 5);
-            } else if (physics.getDirectionInDegrees() == 90.0) {
+            }
+            physics.setDirectionInDegrees(shipShape.getRotate());
+        } 
+        else {
+            if (physics.getDirectionInDegrees() < directionFaced.getAngle() || physics.getDirectionInDegrees() > directionFaced.add180()) {
+                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
+            } else if (physics.getDirectionInDegrees() == directionFaced.getAngle()) {
                 return;
             } else {
                 shipShape.setRotate(physics.getDirectionInDegrees() - 5);
-            }
-            physics.setDirectionInDegrees(shipShape.getRotate());
-        }
-
-        if (directionFaced == Directions.WEST) {
-            if (physics.getDirectionInDegrees() < 270.0 && physics.getDirectionInDegrees() > 90.0) {
-                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
-            } else if (physics.getDirectionInDegrees() == 270.0) {
-                return;
-            } else {
-                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
-            }
-            physics.setDirectionInDegrees(shipShape.getRotate());
-        }
-
-        if (directionFaced == Directions.SOUTH) {
-            if (physics.getDirectionInDegrees() > 0.0 && physics.getDirectionInDegrees() < 180.0) {
-                shipShape.setRotate(physics.getDirectionInDegrees()+ 5);
-            } else if (physics.getDirectionInDegrees() == 180.0) {
-                return;
-            } else {
-                shipShape.setRotate(physics.getDirectionInDegrees()- 5);
-            }
-            physics.setDirectionInDegrees(shipShape.getRotate());
-        }
-
-        if (directionFaced == Directions.NORTH) {
-            if (physics.getDirectionInDegrees() > 180.0 && physics.getDirectionInDegrees() < 360.0) {
-                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
-            } else if (physics.getDirectionInDegrees() == 0.0 || physics.getDirectionInDegrees() == 360.0) {
-                return;
-            } else {
-                shipShape.setRotate(physics.getDirectionInDegrees()- 5);
-            }
-            physics.setDirectionInDegrees(shipShape.getRotate());
-        }
-
-        if (directionFaced == Directions.NORTHEAST) {
-            if (physics.getDirectionInDegrees() >= 225.0 || physics.getDirectionInDegrees() < 45.0) {
-                System.out.println(shipShape.getRotate());
-                shipShape.setRotate(shipShape.getRotate() + 5);
-            } else if (physics.getDirectionInDegrees() == 45.0) {
-                return;
-            } else {
-                System.out.println(shipShape.getRotate());
-                shipShape.setRotate(shipShape.getRotate() - 5);
-            }
-            physics.setDirectionInDegrees(shipShape.getRotate());
-        }
-
-        if (directionFaced == Directions.NORTHWEST) {
-            if (physics.getDirectionInDegrees() > 315.0 || physics.getDirectionInDegrees() < 135.0) {
-                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
-            } else if (physics.getDirectionInDegrees() == 315.0) {
-                return;
-            } else {
-                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
-            }
-            physics.setDirectionInDegrees(shipShape.getRotate());
-        }
-        
-        if (directionFaced == Directions.SOUTHEAST) {
-            if (physics.getDirectionInDegrees() > 135.0 && physics.getDirectionInDegrees() < 315.0) {
-                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
-            } else if (physics.getDirectionInDegrees() == 135.0) {
-                return;
-            } else {
-                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
             }
             physics.setDirectionInDegrees(shipShape.getRotate());
         }
     }
+
+//    public void rotate(Directions directionFaced) {
+//        System.out.println(shipShape.getRotate() + " " + physics.getDirectionInDegrees());
+//
+//        if (directionFaced == Directions.EAST) {
+//            if (physics.getDirectionInDegrees() < directionFaced.getAngle() || physics.getDirectionInDegrees() > directionFaced.add180()) {
+//                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
+//            } else if (physics.getDirectionInDegrees() == directionFaced.getAngle()) {
+//                return;
+//            } else {
+//                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
+//            }
+//            physics.setDirectionInDegrees(shipShape.getRotate());
+//        }
+//
+//        if (directionFaced == Directions.WEST) {
+//            if (physics.getDirectionInDegrees() < 270.0 && physics.getDirectionInDegrees() > 90.0) {
+//                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
+//            } else if (physics.getDirectionInDegrees() == 270.0) {
+//                return;
+//            } else {
+//                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
+//            }
+//            physics.setDirectionInDegrees(shipShape.getRotate());
+//        }
+//
+//        if (directionFaced == Directions.SOUTH) {
+//            if (physics.getDirectionInDegrees() > 0.0 && physics.getDirectionInDegrees() < 180.0) {
+//                shipShape.setRotate(physics.getDirectionInDegrees()+ 5);
+//            } else if (physics.getDirectionInDegrees() == 180.0) {
+//                return;
+//            } else {
+//                shipShape.setRotate(physics.getDirectionInDegrees()- 5);
+//            }
+//            physics.setDirectionInDegrees(shipShape.getRotate());
+//        }
+//
+//        if (directionFaced == Directions.NORTH) {
+//            if (physics.getDirectionInDegrees() > 180.0 && physics.getDirectionInDegrees() < 360.0) {
+//                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
+//            } else if (physics.getDirectionInDegrees() == 0.0 || physics.getDirectionInDegrees() == 360.0) {
+//                return;
+//            } else {
+//                shipShape.setRotate(physics.getDirectionInDegrees()- 5);
+//            }
+//            physics.setDirectionInDegrees(shipShape.getRotate());
+//        }
+//
+//        if (directionFaced == Directions.NORTHEAST) {
+//            if (physics.getDirectionInDegrees() >= 225.0 || physics.getDirectionInDegrees() < 45.0) {
+//                System.out.println(shipShape.getRotate());
+//                shipShape.setRotate(shipShape.getRotate() + 5);
+//            } else if (physics.getDirectionInDegrees() == 45.0) {
+//                return;
+//            } else {
+//                System.out.println(shipShape.getRotate());
+//                shipShape.setRotate(shipShape.getRotate() - 5);
+//            }
+//            physics.setDirectionInDegrees(shipShape.getRotate());
+//        }
+//
+//        if (directionFaced == Directions.NORTHWEST) {
+//            if (physics.getDirectionInDegrees() > 315.0 || physics.getDirectionInDegrees() < 135.0) {
+//                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
+//            } else if (physics.getDirectionInDegrees() == 315.0) {
+//                return;
+//            } else {
+//                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
+//            }
+//            physics.setDirectionInDegrees(shipShape.getRotate());
+//        }
+//        
+//        if (directionFaced == Directions.SOUTHEAST) {
+//            if (physics.getDirectionInDegrees() > 135.0 && physics.getDirectionInDegrees() < 315.0) {
+//                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
+//            } else if (physics.getDirectionInDegrees() == 135.0) {
+//                return;
+//            } else {
+//                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
+//            }
+//            physics.setDirectionInDegrees(shipShape.getRotate());
+//        }
+//        
+//        if (directionFaced == Directions.SOUTHWEST) {
+//            if (physics.getDirectionInDegrees() > 225.0 && physics.getDirectionInDegrees() < 45.0) {
+//                shipShape.setRotate(physics.getDirectionInDegrees() - 5);
+//            } else if (physics.getDirectionInDegrees() == 225.0) {
+//                return;
+//            } else {
+//                shipShape.setRotate(physics.getDirectionInDegrees() + 5);
+//            }
+//            physics.setDirectionInDegrees(shipShape.getRotate());
+//        }
+//    }
 }

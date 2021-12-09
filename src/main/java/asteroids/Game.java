@@ -65,21 +65,6 @@ public class Game {
                     ship.move(timeDifference);
                     ship.rotate(ui.determineDirectionFaced());
                 }
-
-//                // 1 method
-//                for (KeyCode key : ui.getPressedKeys().keySet()) {
-//                    if (ui.getPressedKeys().get(key)) {
-//                        keyCode = key;
-//                    }
-//                }
-//
-//                // 2 method
-//                if (keyCode == null || ui.getPressedKeys().get(keyCode) == false || keyCode != previousCode) {
-//                    ship.slow(timeDifference);
-//                } else {
-//                    ship.move(timeDifference);
-//                    ship.rotate(keyCode);
-//                }
                 
                 previousTimeStamp = now;
                 previousCode = keyCode;
