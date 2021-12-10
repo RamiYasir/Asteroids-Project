@@ -20,7 +20,12 @@ public class Physics {
     }
     
     public void increaseSpeed() {
-        if (speed >= 0.8) {
+        if (speed < -0.6) {
+            speed = -0.6;
+            return;
+        }
+        
+        if (speed > 0.8) {
             speed = 0.8;
             return;
         }
@@ -28,11 +33,55 @@ public class Physics {
     }
     
     public void decreaseSpeed() {
-        if (speed <= 0) {
-            speed = 0.0;
+        if (speed < -0.6) {
+            speed = -0.6;
             return;
         }
+        
         speed -= 0.02;
+    }
+    
+//    public void decreaseSpeedNegatively() {
+//        if (speed < -0.6) {
+//            speed = -0.6;
+//            return;
+//        }
+//        
+//        speed -= 0.02;
+//    }
+    
+    public boolean speedIsZero() {
+        return speed == 0;
+    }
+    
+    public boolean speedIsNegative() {
+        return speed < 0;
+    }
+    
+    public boolean speedIsPositive() {
+        return speed > 0;
+    }
+    
+//    public void increaseSpeedNegatively() {
+//        if (speed > 0) {
+//            speed = 0;
+//            return;
+//        }
+//        
+//        speed += 0.01;
+//    }
+//    
+//    public void decreaseSpeedNegatively() {
+//        if (speed < -0.6) {
+//            speed = -0.6;
+//            return;
+//        }
+//        
+//        speed -= 0.02;
+//    }
+    
+    public void setSpeed(double newSpeed) {
+        speed = newSpeed;
     }
     
     public double getSpeed() {

@@ -18,9 +18,11 @@ import javafx.scene.layout.Pane;
  * @author Rami.Yasir
  */
 public class Game {
+
     private final UserInterface ui;
     private final Ship ship;
     private boolean isRunning;
+    private Pane currentPane;
     private Scene scene;
 //    private Map<KeyCode, Boolean> pressedKeys;
 //  private ArrayList<Moveable> objects on screen.
@@ -29,16 +31,16 @@ public class Game {
     public Game() {
         this.ui = new UserInterface();
         this.ship = new Ship();
+        this.currentPane = new Pane();
 //        this.pressedKeys = new HashMap<>();
         this.isRunning = true;
         this.scene = createScene();
     }
 
     private Scene createScene() {
-        Pane pane = new Pane();
-        pane.setPrefSize(600, 480);
-        pane.getChildren().add(ship.getShipShape());
-        Scene scene = new Scene(pane);
+        currentPane.setPrefSize(750, 600);
+        currentPane.getChildren().add(ship.getShipShape());
+        Scene scene = new Scene(currentPane);
 
 //        Bounds paneBounds = pane.sceneToLocal(pane.getBoundsInLocal());
         scene.setOnKeyPressed(event -> {
@@ -58,16 +60,29 @@ public class Game {
             @Override
             public void handle(long now) {
                 long timeDifference = now - previousTimeStamp;
-                
+//                System.out.println(ship.physics.getSpeed());
+
+                System.out.println(ship.physics.getSpeed());
+                if (detectShipCollisionWithBounds()) {
+                    while (ship.physics.getSpeed() > 0.0) {
+                        ship.rebound(timeDifference);
+                    }
+                }
+
                 if (ui.determineDirectionFaced() == Directions.NONE) {
-                    ship.slow(timeDifference);
+                    if (ship.physics.speedIsZero()) {
+                        ship.physics.resetVariables();
+                    } else {
+                        ship.slow(timeDifference);
+                    }
                 } else {
                     ship.move(timeDifference);
                     ship.rotate(ui.determineDirectionFaced());
                 }
-                
+
                 previousTimeStamp = now;
                 previousCode = keyCode;
+
             }
         }.start();
 
@@ -80,5 +95,18 @@ public class Game {
 
     public boolean isRunning() {
         return isRunning;
+    }
+
+    private boolean detectShipCollisionWithBounds() {
+        Bounds shipBounds = ship.getShipShape().getBoundsInParent();
+        Bounds paneBounds = currentPane.getBoundsInLocal();
+//        System.out.println(paneBounds);
+//        System.out.println(shipBounds);
+
+        if (shipBounds.getMaxX() > 750.0) {
+            return true;
+        }
+
+        return false;
     }
 }
