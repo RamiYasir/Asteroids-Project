@@ -24,15 +24,11 @@ public class Game {
     private boolean isRunning;
     private Pane currentPane;
     private Scene scene;
-//    private Map<KeyCode, Boolean> pressedKeys;
-//  private ArrayList<Moveable> objects on screen.
-//  or, more likely, physics should have a list of objects on screen and calculate their directions and speed.
 
     public Game() {
         this.ui = new UserInterface();
         this.ship = new Ship();
         this.currentPane = new Pane();
-//        this.pressedKeys = new HashMap<>();
         this.isRunning = true;
         this.scene = createScene();
     }
@@ -42,9 +38,7 @@ public class Game {
         currentPane.getChildren().add(ship.getShipShape());
         Scene scene = new Scene(currentPane);
 
-//        Bounds paneBounds = pane.sceneToLocal(pane.getBoundsInLocal());
         scene.setOnKeyPressed(event -> {
-//            System.out.println(paneBounds);
             ui.add(event.getCode(), Boolean.TRUE);
         });
 
@@ -60,24 +54,24 @@ public class Game {
             @Override
             public void handle(long now) {
                 long timeDifference = now - previousTimeStamp;
-//                System.out.println(ship.physics.getSpeed());
 
-                System.out.println(ship.physics.getSpeed());
-                if (detectShipCollisionWithBounds()) {
-                    while (ship.physics.getSpeed() > 0.0) {
-                        ship.rebound(timeDifference);
-                    }
+                if (detectShipCollisionWithBounds() && ship.physics.speedIsPositive()) {
+                    System.out.println("ship.rebound() called");
+                    ship.reboundBackwards(timeDifference);
+                    System.out.println(ship.physics.getSpeed());
+                }
+                
+                if (detectShipCollisionWithBounds() && ship.physics.speedIsNegative()) {
+                    ship.reboundForwards(timeDifference);
                 }
 
-                if (ui.determineDirectionFaced() == Directions.NONE) {
-                    if (ship.physics.speedIsZero()) {
-                        ship.physics.resetVariables();
-                    } else {
-                        ship.slow(timeDifference);
-                    }
-                } else {
+                if (ui.determineDirectionFaced() != Directions.NONE) {
+                    System.out.println("ship.move() called");
                     ship.move(timeDifference);
                     ship.rotate(ui.determineDirectionFaced());
+                } else if (ui.determineDirectionFaced() == Directions.NONE && !ship.physics.speedIsZero()) {
+                    System.out.println("ship.slow(timeDifference) called");
+                    ship.slow(timeDifference);
                 }
 
                 previousTimeStamp = now;
@@ -97,13 +91,25 @@ public class Game {
         return isRunning;
     }
 
+    
+    // Maybe create another polygon that serves as the playing field bounds.
+    // Don't think it needs to be added to the scene, just used for calculations. 
     private boolean detectShipCollisionWithBounds() {
         Bounds shipBounds = ship.getShipShape().getBoundsInParent();
-        Bounds paneBounds = currentPane.getBoundsInLocal();
-//        System.out.println(paneBounds);
-//        System.out.println(shipBounds);
 
         if (shipBounds.getMaxX() > 750.0) {
+            return true;
+        }
+
+        if (shipBounds.getMaxY() > 600.0) {
+            return true;
+        }
+        
+        if (shipBounds.getMinX() < 0.0) {
+            return true;
+        }
+        
+        if (shipBounds.getMinY() < 0.0) {
             return true;
         }
 

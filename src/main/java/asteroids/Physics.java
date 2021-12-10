@@ -38,17 +38,42 @@ public class Physics {
             return;
         }
         
+        if (speed > 0.8) {
+            speed = 0.8;
+            return;
+        } 
+        
         speed -= 0.02;
     }
     
-//    public void decreaseSpeedNegatively() {
-//        if (speed < -0.6) {
-//            speed = -0.6;
-//            return;
-//        }
-//        
-//        speed -= 0.02;
-//    }
+    public void increaseSpeedToZero() {
+        if (speed < -0.6) {
+            speed = -0.6;
+            return;
+        }
+        
+        if (speed > 0.02) {
+            speed = 0.0;
+            return;
+        }
+        
+        speed += 0.02;
+    }
+    
+    public void decreaseSpeedToZero() {
+        if (speed > 0.6) {
+            speed = 0.6;
+            return;
+        }
+        
+        if (speed < 0.02) {
+            speed = 0.0;
+            return;
+        }
+        
+        speed -= 0.02;
+    }
+    
     
     public boolean speedIsZero() {
         return speed == 0;
@@ -62,23 +87,6 @@ public class Physics {
         return speed > 0;
     }
     
-//    public void increaseSpeedNegatively() {
-//        if (speed > 0) {
-//            speed = 0;
-//            return;
-//        }
-//        
-//        speed += 0.01;
-//    }
-//    
-//    public void decreaseSpeedNegatively() {
-//        if (speed < -0.6) {
-//            speed = -0.6;
-//            return;
-//        }
-//        
-//        speed -= 0.02;
-//    }
     
     public void setSpeed(double newSpeed) {
         speed = newSpeed;

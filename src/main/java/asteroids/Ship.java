@@ -36,15 +36,14 @@ public class Ship implements Moveable {
 
     @Override
     public void slow(long timeDifference) {
-        if (physics.getSpeed() > 0) {
-            physics.decreaseSpeed();
-        } else if (physics.getSpeed() < 0) {
-            physics.increaseSpeed();
-        } else {
-            physics.resetVariables();
+        if (physics.speedIsPositive()) {
+            physics.decreaseSpeedToZero();
         }
 
-//        physics.decreaseSpeed();
+        if (physics.speedIsNegative()) {
+            physics.increaseSpeedToZero();
+        }
+
         shipShape.setTranslateX(shipShape.getTranslateX() + physics.calculateDistanceInXCoordinate(timeDifference));
         shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInYCoordinate(timeDifference));
     }
@@ -56,15 +55,20 @@ public class Ship implements Moveable {
         shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInYCoordinate(timeDifference));
     }
 
-    public void rebound(long timeDifference) {
+    public void reboundBackwards(long timeDifference) {
         physics.setSpeed(physics.getSpeed() - (physics.getSpeed() * 2));
-        physics.increaseSpeed();
+        physics.increaseSpeedToZero();
+
         shipShape.setTranslateX(shipShape.getTranslateX() + physics.calculateDistanceInXCoordinate(timeDifference));
         shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInYCoordinate(timeDifference));
-
-//        physics.decreaseSpeed();
-//        shipShape.setTranslateX(shipShape.getTranslateX() + physics.calculateDistanceInXCoordinate(timeDifference));
-//        shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInYCoordinate(timeDifference));
+    }
+    
+    public void reboundForwards(long timeDifference) {
+        physics.setSpeed(physics.getSpeed() + (physics.getSpeed() * 2));
+        physics.decreaseSpeedToZero();
+        
+        shipShape.setTranslateX(shipShape.getTranslateX() + physics.calculateDistanceInXCoordinate(timeDifference));
+        shipShape.setTranslateY(shipShape.getTranslateY() - physics.calculateDistanceInYCoordinate(timeDifference));
     }
 
     public void rotate(Directions directionFaced) {
